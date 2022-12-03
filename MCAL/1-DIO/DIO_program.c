@@ -1,181 +1,414 @@
+/** @file DIO_program.c
+ *
+ * @brief A file that includes functions implementations for AVR.
+ *
+ * @author Amir Shetaia
+ * @version 2.0
+ * @date Dec 3, 2022
+ *
+ */
+
+/*========================== Libraries Includes ==========================*/
 #include "../Lib/Std_Types.h"
 #include "../Lib/Bit_Math.h"
 #include "DIO_private.h"
+#include "DIO_config.h"
 #include "DIO_interface.h"
 
-/*------------------------------------Pins functions------------------------------------------------*/
-
-void DIO_VidSetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Value) //Setting pin value to High or Low
+/*========================== Init function ========================== */
+/*
+ * Description: Function to set the initialized direction and value of each port
+ * Inputs: none
+ * Output: void
+ */
+void DIO_VidInit(void)
 {
-    if (Copy_u8Value == high)
+    /* Ports Direction initialization */
+    DDRA = DIO_PORTA_INIT_DIR;
+    DDRB = DIO_PORTB_INIT_DIR;
+    DDRC = DIO_PORTC_INIT_DIR;
+    DDRD = DIO_PORTD_INIT_DIR;
+
+    /* Ports States initialization */
+    PORTA = DIO_PORTA_INIT_STATE;
+    PORTB = DIO_PORTB_INIT_STATE;
+    PORTC = DIO_PORTC_INIT_STATE;
+    PORTD = DIO_PORTD_INIT_STATE;
+}
+
+/*========================== Pins functions ==========================*/
+
+/*
+ * Description: Function to set the direction of a specific pin in a specified port
+ * Inputs: the port, the pin number, the pin direction
+ * Output: the Error state of the function
+ */
+u8 DIO_u8SetPinDirection(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Direction)
+{
+    /*Local Variable holding the error state*/
+    u8 Local_u8Error;
+
+    /*checking the error possibilities of the inputs*/
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7) || (Copy_u8Direction != INPUT) && (Copy_u8Direction != INPUT_PULLUP) && (Copy_u8Direction != OUTPUT))
+    {
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
+    {
+
+        /* Check for input mode 0 for input without pull up */
+        if (Copy_u8Direction == INPUT)
+        {
+            /* Set pin as input without pull up enabled */
+            switch (Copy_u8Port)
+            {
+
+            case (PORT_A):
+                CLR_BIT(DDRA, Copy_u8Pin);
+                CLR_BIT(PORTA, Copy_u8Pin);
+                break;
+            case (PORT_B):
+                CLR_BIT(DDRB, Copy_u8Pin);
+                CLR_BIT(PORTB, Copy_u8Pin);
+                break;
+            case (PORT_C):
+                CLR_BIT(DDRC, Copy_u8Pin);
+                CLR_BIT(PORTC, Copy_u8Pin);
+                break;
+            case (PORT_D):
+                CLR_BIT(DDRD, Copy_u8Pin);
+                CLR_BIT(PORTD, Copy_u8Pin);
+                break;
+            }
+        }
+
+        /* Check for input mode 1 for input with pull up enabled */
+        else if (Copy_u8Direction == INPUT_PULLUP)
+        {
+
+            switch (Copy_u8Port)
+            {
+                /* Set pin as input and enable pull up */
+            case (PORT_A):
+                SET_BIT(DDRA, Copy_u8Pin);
+                SET_BIT(PORTA, Copy_u8Pin);
+                break;
+            case (PORT_B):
+                SET_BIT(DDRB, Copy_u8Pin);
+                SET_BIT(PORTA, Copy_u8Pin);
+                break;
+            case (PORT_C):
+                SET_BIT(DDRC, Copy_u8Pin);
+                SET_BIT(PORTA, Copy_u8Pin);
+                break;
+            case (PORT_D):
+                SET_BIT(DDRD, Copy_u8Pin);
+                SET_BIT(PORTA, Copy_u8Pin);
+                break;
+            }
+        }
+
+        /* Check for input mode 2 for output */
+        else if (Copy_u8Direction == OUTPUT)
+        {
+
+            switch (Copy_u8Port)
+            {
+                /* Set pin as output */
+            case (PORT_A):
+                SET_BIT(DDRA, Copy_u8Pin);
+                break;
+            case (PORT_B):
+                SET_BIT(DDRB, Copy_u8Pin);
+                break;
+            case (PORT_C):
+                SET_BIT(DDRC, Copy_u8Pin);
+                break;
+            case (PORT_D):
+                SET_BIT(DDRD, Copy_u8Pin);
+                break;
+            }
+        }
+        Local_u8Error = STATUS_OK;
+    }
+
+    /* Function return */
+    return Local_u8Error;
+}
+
+/*
+ * Description: Function to set a specific pin in a specified port with a specified value (INPUT = 0, OUTPUT = 1)
+ * Inputs: the port, the pin number, the pin value
+ * Output: the Error state of the function
+ */
+u8 DIO_u8SetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Value)
+{
+    /*Local Variable holding the error state*/
+    u8 Local_u8Error;
+
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7) || (Copy_u8Value != HIGH) && (Copy_u8Value != LOW))
+    {
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
+    {
+
+        if (Copy_u8Value == HIGH)
+        {
+            switch (Copy_u8Port)
+            {
+
+            case (PORT_A):
+                SET_BIT(PORTA, Copy_u8Pin);
+                break;
+            case (PORT_B):
+                SET_BIT(PORTB, Copy_u8Pin);
+                break;
+            case (PORT_C):
+                SET_BIT(PORTC, Copy_u8Pin);
+                break;
+            case (PORT_D):
+                SET_BIT(PORTD, Copy_u8Pin);
+                break;
+            }
+        }
+
+        else if (Copy_u8Value == LOW)
+        {
+            switch (Copy_u8Port)
+            {
+
+            case (PORT_A):
+                CLR_BIT(PORTA, Copy_u8Pin);
+                break;
+            case (PORT_B):
+                CLR_BIT(PORTB, Copy_u8Pin);
+                break;
+            case (PORT_C):
+                CLR_BIT(PORTC, Copy_u8Pin);
+                break;
+            case (PORT_D):
+                CLR_BIT(PORTD, Copy_u8Pin);
+                break;
+            }
+        }
+        Local_u8Error = STATUS_OK;
+    }
+
+    /* Function return */
+    return Local_u8Error;
+}
+
+/*
+ * Description: Function to get the value of a certain input pin in a specified port
+ * Inputs: the port, the pin number, the container variable which will hold the value on this pin
+ * output: the Error state of the function
+ */
+u8 DIO_u8GetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin, u8 *Copy_Pu8PinValue)
+{
+    /*Local Variable holding the error state*/
+    u8 Local_u8Error;
+
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7) || (Copy_Pu8PinValue == NULL))
+    {
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
     {
         switch (Copy_u8Port)
         {
-
-        case (Port_A):
-            SET_BIT(PORTA, Copy_u8Pin);
+        case (PORT_A):
+            *Copy_Pu8PinValue = GET_BIT(PINA, Copy_u8Pin);
             break;
-        case (Port_B):
-            SET_BIT(PORTB, Copy_u8Pin);
+        case (PORT_B):
+            *Copy_Pu8PinValue = GET_BIT(PINB, Copy_u8Pin);
             break;
-        case (Port_C):
-            SET_BIT(PORTC, Copy_u8Pin);
+        case (PORT_C):
+            *Copy_Pu8PinValue = GET_BIT(PINC, Copy_u8Pin);
             break;
-        case (Port_D):
-            SET_BIT(PORTD, Copy_u8Pin);
+        case (PORT_D):
+            *Copy_Pu8PinValue = GET_BIT(PIND, Copy_u8Pin);
             break;
         }
+        Local_u8Error = STATUS_OK;
     }
 
-    else if (Copy_u8Value == low)
+    /* Function return */
+    return Local_u8Error;
+}
+
+/*========================== Ports functions ==========================-*/
+
+/*
+ * Description: Function to set the direction of the whole pins ins a specified port
+ * Inputs: the port and direction
+ * Output: the Error state of the function
+ */
+u8 DIO_u8SetPortDirection(u8 Copy_u8Port, u8 Copy_u8Direction)
+{
+    /* Local variable holding the error state */
+    u8 Local_u8Error;
+
+    /* Checking the error possibilities of the inputs */
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Direction != INPUT) && (Copy_u8Direction != OUTPUT))
+    {
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
+    {
+        /* Set Port Direction to input with pull up disabled */
+        if (Copy_u8Direction == INPUT)
+        {
+            switch (Copy_u8Port)
+            {
+            case (PORT_A):
+                DDRA = PORT_INPUT;
+                PORTA = PORT_LOW;
+                break;
+            case (PORT_B):
+                DDRB = PORT_INPUT;
+                PORTB = PORT_LOW;
+                break;
+            case (PORT_C):
+                DDRC = PORT_INPUT;
+                PORTC = PORT_LOW;
+                break;
+            case (PORT_D):
+                DDRD = PORT_INPUT;
+                PORTD = PORT_LOW;
+                break;
+            }
+        }
+        /* Set Port Direction to input with pull up enabled */
+        else if (Copy_u8Direction == INPUT_PULLUP)
+        {
+            switch (Copy_u8Port)
+            {
+            case (PORT_A):
+                DDRA = PORT_INPUT;
+                PORTA = PORT_HIGH;
+                break;
+            case (PORT_B):
+                DDRB = PORT_INPUT;
+                PORTB = PORT_HIGH;
+                break;
+            case (PORT_C):
+                DDRC = PORT_INPUT;
+                PORTC = PORT_HIGH;
+                break;
+            case (PORT_D):
+                DDRD = PORT_INPUT;
+                PORTD = PORT_HIGH;
+                break;
+            }
+        }
+
+        /* Set Port Direction to output */
+        else if (Copy_u8Direction == OUTPUT)
+        {
+            switch (Copy_u8Port)
+            {
+            case (PORT_A):
+                DDRA = PORT_OUTPUT;
+                break;
+            case (PORT_B):
+                DDRB = PORT_OUTPUT;
+                break;
+            case (PORT_C):
+                DDRC = PORT_OUTPUT;
+                break;
+            case (PORT_D):
+                DDRD = PORT_OUTPUT;
+                break;
+            }
+        }
+        Local_u8Error = STATUS_OK;
+    }
+
+    /* Function return */
+    return Local_u8Error;
+}
+
+/*
+ * Description: Function to set pins of a specified port with a specified value
+ * Inputs: the port, the port value
+ * Output: the Error state of the function
+ */
+u8 DIO_u8SetPortValue(u8 Copy_u8Port, u8 Copy_u8Value)
+{
+    /*Local Variable holding the error state */
+    u8 Local_u8Error;
+
+    /*checking the error possibilities of the inputs*/
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Value > PORT_HIGH))
+    {
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
     {
         switch (Copy_u8Port)
         {
-
-        case (Port_A):
-            CLR_BIT(PORTA, Copy_u8Pin);
+        case (PORT_A):
+            PORTA = Copy_u8Value;
             break;
-        case (Port_B):
-            CLR_BIT(PORTB, Copy_u8Pin);
+        case (PORT_B):
+            PORTB = Copy_u8Value;
             break;
-        case (Port_C):
-            CLR_BIT(PORTC, Copy_u8Pin);
+        case (PORT_C):
+            PORTC = Copy_u8Value;
             break;
-        case (Port_D):
-            CLR_BIT(PORTD, Copy_u8Pin);
+        case (PORT_D):
+            PORTD = Copy_u8Value;
             break;
         }
+        Local_u8Error = STATUS_OK;
     }
+
+    /* Function return */
+    return Local_u8Error;
 }
 
-void DIO_VidSetPinMode(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Mode) //Setting pin mode to Input or Output
+/*
+ * Description: Function to get the value of a specified port
+ * Inputs: the port, the container variable which will hold the value on this port
+ * output: the Error state of the function
+ */
+u8 DIO_u8GetPortValue(u8 Copy_u8Port, u8 *Copy_Pu8PortValue)
 {
-    //Check for input mode 0 for input
-    if (Copy_u8Mode == input)
+    /*Local Variable holding the error state */
+    u8 Local_u8Error;
+
+    /*checking the error possibilities of the inputs*/
+    if ((Copy_u8Port > PORT_D) || (Copy_Pu8PortValue == NULL))
     {
-        //Set pin as input
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
+    {
         switch (Copy_u8Port)
         {
-
-        case (Port_A):
-            CLR_BIT(DDRA, Copy_u8Pin);
+        case (PORT_A):
+            *Copy_Pu8PortValue = PINA;
             break;
-        case (Port_B):
-            CLR_BIT(DDRB, Copy_u8Pin);
+        case (PORT_B):
+            *Copy_Pu8PortValue = PINB;
             break;
-        case (Port_C):
-            CLR_BIT(DDRC, Copy_u8Pin);
+        case (PORT_C):
+            *Copy_Pu8PortValue = PINC;
             break;
-        case (Port_D):
-            CLR_BIT(DDRD, Copy_u8Pin);
-            break;
-        }
-    }
-    //check for mode 1 for output */
-
-    else if (Copy_u8Mode == output)
-    {
-
-        switch (Copy_u8Port)
-        {
-            //Set pin as output
-        case (Port_A):
-            SET_BIT(DDRA, Copy_u8Pin);
-            break;
-        case (Port_B):
-            SET_BIT(DDRB, Copy_u8Pin);
-            break;
-        case (Port_C):
-            SET_BIT(DDRC, Copy_u8Pin);
-            break;
-        case (Port_D):
-            SET_BIT(DDRD, Copy_u8Pin);
+        case (PORT_D):
+            *Copy_Pu8PortValue = PIND;
             break;
         }
+        Local_u8Error = STATUS_OK;
     }
-}
 
-void DIO_VidGetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin, u8 *Copy_Pu8PinValue) //Getting current pin value
-{
-
-    switch (Copy_u8Port)
-    {
-        //Set pin as output
-    case (Port_A):
-        *Copy_Pu8PinValue = GET_BIT(PINA, Copy_u8Pin);
-        break;
-    case (Port_B):
-        *Copy_Pu8PinValue = GET_BIT(PINB, Copy_u8Pin);
-        break;
-    case (Port_C):
-        *Copy_Pu8PinValue = GET_BIT(PINC, Copy_u8Pin);
-        break;
-    case (Port_D):
-        *Copy_Pu8PinValue = GET_BIT(PIND, Copy_u8Pin);
-        break;
-    }
-}
-
-/*------------------------------------Ports functions------------------------------------------------*/
-
-void DIO_VidSetPortValue(u8 Copy_u8Port, u8 Copy_u8Value) //Setting all pins values on port to High or Low  
-{
-
-    switch (Copy_u8Port)
-    {
-        //Set pin as output
-    case (Port_A):
-        PORTA = Copy_u8Value;
-        break;
-    case (Port_B):
-        PORTB = Copy_u8Value;
-        break;
-    case (Port_C):
-        PORTC = Copy_u8Value;
-        break;
-    case (Port_D):
-        PORTD = Copy_u8Value;
-        break;
-    }
-}
-
-void DIO_VidSetPortMode(u8 Copy_u8Port, u8 Copy_u8Mode) //Setting all pins modes on port to Input or Output
-{
-
-    switch (Copy_u8Port)
-    {
-        /*Set pin as output */
-    case (Port_A):
-        DDRA = Copy_u8Mode;
-        break;
-    case (Port_B):
-        DDRB = Copy_u8Mode;
-        break;
-    case (Port_C):
-        DDRC = Copy_u8Mode;
-        break;
-    case (Port_D):
-        DDRD = Copy_u8Mode;
-        break;
-    }
-}
-
-void DIO_VidGetPortValue(u8 Copy_u8Port, u8 *Copy_Pu8PortValue) //Getting current pins values on port
-{
-
-    switch (Copy_u8Port)
-    {
-    case (Port_A):
-        *Copy_Pu8PortValue = PINA;
-        break;
-    case (Port_B):
-        *Copy_Pu8PortValue = PINB;
-        break;
-    case (Port_C):
-        *Copy_Pu8PortValue = PINC;
-        break;
-    case (Port_D):
-        *Copy_Pu8PortValue = PIND;
-        break;
-    }
+    /* Function return */
+    return Local_u8Error;
 }
