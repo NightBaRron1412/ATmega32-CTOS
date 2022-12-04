@@ -49,7 +49,7 @@ u8 DIO_u8SetPinDirection(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Direction)
     u8 Local_u8Error;
 
     /*checking the error possibilities of the inputs*/
-    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7) || (Copy_u8Direction != INPUT) && (Copy_u8Direction != INPUT_PULLUP) && (Copy_u8Direction != OUTPUT))
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7) || (Copy_u8Direction != INPUT) || (Copy_u8Direction != INPUT_PULLUP) || (Copy_u8Direction != OUTPUT))
     {
         Local_u8Error = STATUS_ERROR;
     }
@@ -86,6 +86,9 @@ u8 DIO_u8SetPinDirection(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Direction)
         /* Check for input mode 1 for input with pull up enabled */
         else if (Copy_u8Direction == INPUT_PULLUP)
         {
+
+            /* Clearing Pull-up disable bit in SFIOR register */
+            CLR_BIT(SFIOR, PUD);
 
             switch (Copy_u8Port)
             {
@@ -147,7 +150,7 @@ u8 DIO_u8SetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Value)
     /*Local Variable holding the error state*/
     u8 Local_u8Error;
 
-    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7) || (Copy_u8Value != HIGH) && (Copy_u8Value != LOW))
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7) || (Copy_u8Value != HIGH) || (Copy_u8Value != LOW))
     {
         Local_u8Error = STATUS_ERROR;
     }
@@ -253,7 +256,7 @@ u8 DIO_u8SetPortDirection(u8 Copy_u8Port, u8 Copy_u8Direction)
     u8 Local_u8Error;
 
     /* Checking the error possibilities of the inputs */
-    if ((Copy_u8Port > PORT_D) || (Copy_u8Direction != INPUT) && (Copy_u8Direction != OUTPUT))
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Direction != INPUT) || (Copy_u8Direction != INPUT_PULLUP) || (Copy_u8Direction != OUTPUT))
     {
         Local_u8Error = STATUS_ERROR;
     }
@@ -286,6 +289,9 @@ u8 DIO_u8SetPortDirection(u8 Copy_u8Port, u8 Copy_u8Direction)
         /* Set Port Direction to input with pull up enabled */
         else if (Copy_u8Direction == INPUT_PULLUP)
         {
+            /* Clearing Pull-up disable bit in SFIOR register */
+            CLR_BIT(SFIOR, PUD);
+
             switch (Copy_u8Port)
             {
             case (PORT_A):

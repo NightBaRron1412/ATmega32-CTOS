@@ -49,6 +49,10 @@
 #define DDRD *((volatile u8 *)0x31)
 #define PIND *((volatile u8 *)0x30)
 
+/* Defining SFIOR register address and PUD Bit Number */
+#define SFIOR *((volatile u8 *) 0x50)
+#define PUD 2
+
 #endif /* DIO_PRIVATE_H */
 
 /*** end of file ***/
