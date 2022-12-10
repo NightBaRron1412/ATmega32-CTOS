@@ -73,7 +73,13 @@ u8 LED_u8On(u8 Copy_u8LedNumber)
 	u8 Local_u8ErrorState = STATUS_OK;
 
 	/* Check if the LED number is valid */
-	if (Copy_u8LedNumber <= LED_NUM_OF_LEDS)
+	if (Copy_u8LedNumber >= LED_NUM_OF_LEDS)
+	{
+		/* Set the error state to Error */
+		Local_u8ErrorState = STATUS_ERROR;
+	}
+
+	else
 	{
 		/* Check if the LED is forward or reverse */
 		switch (LED_Au8LedDirection[Copy_u8LedNumber])
@@ -85,11 +91,6 @@ u8 LED_u8On(u8 Copy_u8LedNumber)
 			Local_u8ErrorState = DIO_u8SetPinValue(LED_Au8LedPort[Copy_u8LedNumber], LED_Au8LedPin[Copy_u8LedNumber], LOW);
 			break;
 		}
-	}
-	else
-	{
-		/* Set the error state to Error */
-		Local_u8ErrorState = STATUS_ERROR;
 	}
 
 	/* Return the error state */
@@ -107,7 +108,13 @@ u8 LED_u8Off(u8 Copy_u8LedNumber)
 	u8 Local_u8ErrorState = STATUS_OK;
 
 	/* Check if the LED number is valid */
-	if (Copy_u8LedNumber <= LED_NUM_OF_LEDS)
+	if (Copy_u8LedNumber >= LED_NUM_OF_LEDS)
+	{
+		/* Set the error state to Error */
+		Local_u8ErrorState = STATUS_ERROR;
+	}
+
+	else
 	{
 		/* Check if the LED is forward or reverse */
 		switch (LED_Au8LedDirection[Copy_u8LedNumber])
@@ -119,11 +126,6 @@ u8 LED_u8Off(u8 Copy_u8LedNumber)
 			Local_u8ErrorState = DIO_u8SetPinValue(LED_Au8LedPort[Copy_u8LedNumber], LED_Au8LedPin[Copy_u8LedNumber], HIGH);
 			break;
 		}
-	}
-	else
-	{
-		/* Set the error state to Error */
-		Local_u8ErrorState = STATUS_ERROR;
 	}
 
 	/* Return the error state */
@@ -141,7 +143,13 @@ u8 LED_u8Off(u8 Copy_u8LedNumber)
 	u8 Local_u8ErrorState = STATUS_OK;
 
 	/* Check if the LED number is valid */
-	if (Copy_u8LedNumber <= LED_NUM_OF_LEDS)
+	if (Copy_u8LedNumber >= LED_NUM_OF_LEDS)
+	{
+		/* Set the error state to Error */
+		Local_u8ErrorState = STATUS_ERROR;
+	}
+
+	else
 	{
 		/* Check if the LED is forward or reverse */
 		switch (LED_Au8LedDirection[Copy_u8LedNumber])
@@ -153,11 +161,6 @@ u8 LED_u8Off(u8 Copy_u8LedNumber)
 			Local_u8ErrorState = DIO_u8SetPinValue(LED_Au8LedPort[Copy_u8LedNumber], LED_Au8LedPin[Copy_u8LedNumber], HIGH);
 			break;
 		}
-	}
-	else
-	{
-		/* Set the error state to Error */
-		Local_u8ErrorState = STATUS_ERROR;
 	}
 
 	/* Return the error state */
@@ -175,7 +178,13 @@ u8 LED_u8Toggle(u8 Copy_u8LedNumber)
 	u8 Local_u8ErrorState = STATUS_OK;
 
 	/* Check if the LED number is valid */
-	if (Copy_u8LedNumber <= LED_NUM_OF_LEDS)
+	if (Copy_u8LedNumber >= LED_NUM_OF_LEDS)
+	{
+		/* Set the error state to Error */
+		Local_u8ErrorState = STATUS_ERROR;
+	}
+
+	else
 	{
 		/* Check if the LED is forward or reverse */
 		switch (LED_Au8LedDirection[Copy_u8LedNumber])
@@ -187,11 +196,6 @@ u8 LED_u8Toggle(u8 Copy_u8LedNumber)
 			Local_u8ErrorState = DIO_u8TogglePinValue(LED_Au8LedPort[Copy_u8LedNumber], LED_Au8LedPin[Copy_u8LedNumber]);
 			break;
 		}
-	}
-	else
-	{
-		/* Set the error state to Error */
-		Local_u8ErrorState = STATUS_ERROR;
 	}
 
 	/* Return the error state */
@@ -209,7 +213,13 @@ u8 LED_u8Blink(u8 Copy_u8LedNumber, u8 Copy_u16OnTime_ms, u8 Copy_u16OffTime_ms)
 	u8 Local_u8ErrorState = STATUS_OK;
 
 	/* Check if the LED number is valid */
-	if (Copy_u8LedNumber <= LED_NUM_OF_LEDS)
+	if (Copy_u8LedNumber >= LED_NUM_OF_LEDS)
+	{
+		/* Set the error state to Error */
+		Local_u8ErrorState = STATUS_ERROR;
+	}
+
+	else
 	{
 		/* Check if the LED is forward or reverse */
 		switch (LED_Au8LedDirection[Copy_u8LedNumber])
@@ -227,11 +237,6 @@ u8 LED_u8Blink(u8 Copy_u8LedNumber, u8 Copy_u16OnTime_ms, u8 Copy_u16OffTime_ms)
 			_delay_ms(Copy_u16OffTime_ms);
 			break;
 		}
-	}
-	else
-	{
-		/* Set the error state to Error */
-		Local_u8ErrorState = STATUS_ERROR;
 	}
 
 	/* Return the error state */
