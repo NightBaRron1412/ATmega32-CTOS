@@ -1,6 +1,6 @@
-/** @file GIE_private.h
+/** @file GIE_interface.h
  * 
- * @brief A header file including to enable or disable GIE 
+ * @brief A header file including APIs to enable or disable GIE 
  *
  * @author Amir Shetaia
  * @version 1.0
@@ -8,14 +8,23 @@
  *
  */
 
+/* include guard */
 #ifndef GIE_INTERFACE_H
 #define GIE_INTERFACE_H
 
-//GIE enable
-void GIE_VidEnable();
+/*
+ * Description: Function to enable all the interrupts for AVR ATmega32
+ * Inputs: void
+ * Output: void
+ */
+void GIE_VidEnable(void);
 
-//GIE disable
-void GIE_VidDisable();
+/*
+ * Description: Function to disable all the interrupts for AVR ATmega32
+ * Inputs: void
+ * Output: void
+ */
+void GIE_VidDisable(void);
 
 #endif /* GIE_INTERFACE_H */
 
