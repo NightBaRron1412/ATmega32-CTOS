@@ -1,6 +1,6 @@
-/** @file GIE_config.h
+/** @file GIE_program.c
  *
- * @brief
+ * @brief A program that implements GIE functions
  *
  * @author Amir Shetaia
  * @version 1.2
