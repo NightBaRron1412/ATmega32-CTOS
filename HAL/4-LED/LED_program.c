@@ -1,4 +1,4 @@
-/** @file DIO_program.c
+/** @file LED_program.c
  *
  * @brief A file that includes functions implementations for LEDs controlling.
  *
