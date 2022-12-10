@@ -3,7 +3,7 @@
  * @brief
  *
  * @author Amir Shetaia
- * @version 1.0
+ * @version 1.2
  * @date Aug 22, 2021
  *
  */
