@@ -205,6 +205,46 @@ u8 DIO_u8SetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Value)
 }
 
 /*
+ * Description: Function to toggle a specific pin in a specified port
+ * Inputs: the port, the pin number
+ * Output: the Error state of the function
+ */
+u8 DIO_u8TogglePinValue(u8 Copy_u8Port, u8 Copy_u8Pin)
+{
+    /*Local Variable holding the error state*/
+    u8 Local_u8Error;
+
+    if ((Copy_u8Port > PORT_D) || (Copy_u8Pin > PIN_7))
+    {
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
+    {
+        switch (Copy_u8Port)
+        {
+
+        case (PORT_A):
+            TOG_BIT(PORTA, Copy_u8Pin);
+            break;
+        case (PORT_B):
+            TOG_BIT(PORTB, Copy_u8Pin);
+            break;
+        case (PORT_C):
+            TOG_BIT(PORTC, Copy_u8Pin);
+            break;
+        case (PORT_D):
+            TOG_BIT(PORTD, Copy_u8Pin);
+            break;
+        }
+        Local_u8Error = STATUS_OK;
+    }
+
+    /* Function return */
+    return Local_u8Error;
+}
+
+/*
  * Description: Function to get the value of a certain input pin in a specified port
  * Inputs: the port, the pin number, the container variable which will hold the value on this pin
  * output: the Error state of the function
@@ -370,6 +410,46 @@ u8 DIO_u8SetPortValue(u8 Copy_u8Port, u8 Copy_u8Value)
             break;
         case (PORT_D):
             PORTD = Copy_u8Value;
+            break;
+        }
+        Local_u8Error = STATUS_OK;
+    }
+
+    /* Function return */
+    return Local_u8Error;
+}
+
+/*
+ * Description: Function to toggle the pins value of a specified port
+ * Inputs: the port
+ * Output: the Error state of the function
+ */
+u8 DIO_u8TogglePortValue(u8 Copy_u8Port)
+{
+    /*Local Variable holding the error state */
+    u8 Local_u8Error;
+
+    /*checking the error possibilities of the inputs*/
+    if (Copy_u8Port > PORT_D)
+    {
+        Local_u8Error = STATUS_ERROR;
+    }
+
+    else
+    {
+        switch (Copy_u8Port)
+        {
+        case (PORT_A):
+            PORTA = PORTA ^ PORT_HIGH;
+            break;
+        case (PORT_B):
+            PORTB = PORTB ^ PORT_HIGH;
+            break;
+        case (PORT_C):
+            PORTC = PORTC ^ PORT_HIGH;
+            break;
+        case (PORT_D):
+            PORTD = PORTD ^ PORT_HIGH;
             break;
         }
         Local_u8Error = STATUS_OK;
