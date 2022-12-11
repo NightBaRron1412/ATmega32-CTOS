@@ -1,54 +1,79 @@
 /** @file EXTI_private.h
- * 
+ *
  * @brief A header file including Ports and Bits numbers for EXTI
  *
  * @author Amir Shetaia
- * @version 1.0
- * @date Aug 22, 2021       
+ * @version 2.0
+ * @date Dec 11, 2022
  *
  */
 
+/* Include guard */
 #ifndef EXTI_PRIVATE_H
 #define EXTI_PRIVATE_H
 
-/*--------------------------Microcontroller Control Register-------------------*/
+/* Private Macro for the number of available external interrupts in AVR ATmega32 */
+#define EXTI_NO_OF_EXTI 3
 
-//Defining Microcontroller Control Register memory address for INT0 - INT1
+/*Private Macros for the External interrupts state (Disabled/Enabled) */
+#define EXTI_DISABLE 0
+#define EXTI_ENABLE 1
+
+/*Private Macros for the probable sense level for the external interrupt */
+#define EXTI_LOW_LEVEL_SC 0
+#define EXTI_FALLING_EDGE_SC 1
+#define EXTI_RISING_EDGE_SC 2
+#define EXTI_ONCHANGE_SC 3
+
+/*========================== Microcontroller Control Register ==========================*/
+
+/* Defining Microcontroller Control Register memory address for INT0 - INT1 */
 #define MCUCR *((volatile u8 *)(0x55))
 
-//Defining MCU Control Register bit numbers for INT0 - INT1
-#define MCUCR_ISC00_PIN 0
-#define MCUCR_ISC01_PIN 1
-#define MCUCR_ISC10_PIN 2
-#define MCUCR_ISC11_PIN 3
+/* Defining MCU Control Register bit numbers for INT0 - INT1 */
+#define MCUCR_ISC00_BIT 0
+#define MCUCR_ISC01_BIT 1
+#define MCUCR_ISC10_BIT 2
+#define MCUCR_ISC11_BIT 3
 
-/*---------------------------MCU Control and Status Register-------------------*/
+/*========================== MCU Control and Status Register ==========================*/
 
-//Defining MCU Control and Status Register memory address for INT2
+/* Defining MCU Control and Status Register memory address for INT2 */
 #define MCUCSR *((volatile u8 *)(0x54))
 
-//Defining MCU Control Register bit numbers for INT2
-#define MCUCSR_ISC2_PIN 6
+/* Defining MCU Control Register bit numbers for INT2 */
+#define MCUCSR_ISC2_BIT 6
 
-/*----------------------------General Interput Control Register-------------------*/
+/*========================== General Interrupt Control Register ==========================*/
 
-//Defining General Interput Control Register memory address
+/* Defining General Interrupt Control Register memory address */
 #define GICR *((volatile u8 *)(0x5B))
 
-//Defining General Interput Control Register bit numbers
-#define GICR_INT0_PIN 6
-#define GICR_INT1_PIN 7
-#define GICR_INT2_PIN 5
+/* Defining General Interrupt Control Register bit numbers */
+#define GICR_INT0_BIT 6
+#define GICR_INT1_BIT 7
+#define GICR_INT2_BIT 5
 
-/*------------------------General Interput Flag Register-------------------*/
+/*========================== General Interrupt Flag Register ==========================*/
 
-//Defining General Interput Flag Register memory address
+/* Defining General Interrupt Flag Register memory address */
 #define GIFR *((volatile u8 *)(0x5A))
 
-//Defining General Interput Flag Register bit numbers
-#define GIFR_INTF0_PIN 6
-#define GIFR_INTF1_PIN 7
-#define GIFR_INTF2_PIN 5
+/* Defining General Interrupt Flag Register bit numbers */
+#define GIFR_INTF0_BIT 6
+#define GIFR_INTF1_BIT 7
+#define GIFR_INTF2_BIT 5
+
+/*========================== ISRs of the external interrupts ==========================*/
+
+/* The ISR of the external interrupt INT0 */
+void __vector_1(void) __attribute__((signal));
+
+/* The ISR of the external interrupt INT1 */
+void __vector_2(void) __attribute__((signal));
+
+/* The ISR of the external interrupt INT2 */
+void __vector_3(void) __attribute__((signal));
 
 #endif /* EXTI_PRIVATE_H */
 
