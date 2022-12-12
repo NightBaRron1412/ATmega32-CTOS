@@ -99,15 +99,15 @@ u8 DIO_u8SetPinDirection(u8 Copy_u8Port, u8 Copy_u8Pin, u8 Copy_u8Direction)
                 break;
             case (PORT_B):
                 SET_BIT(DDRB, Copy_u8Pin);
-                SET_BIT(PORTA, Copy_u8Pin);
+                SET_BIT(PORTB, Copy_u8Pin);
                 break;
             case (PORT_C):
                 SET_BIT(DDRC, Copy_u8Pin);
-                SET_BIT(PORTA, Copy_u8Pin);
+                SET_BIT(PORTC, Copy_u8Pin);
                 break;
             case (PORT_D):
                 SET_BIT(DDRD, Copy_u8Pin);
-                SET_BIT(PORTA, Copy_u8Pin);
+                SET_BIT(PORTD, Copy_u8Pin);
                 break;
             }
         }
