@@ -16,13 +16,13 @@
 typedef enum
 {
 
-    EXTI_INT0,            /* 0 */
-    EXTI_INT1,            /* 1 */
-    EXTI_INT2,            /* 2 */
-    EXTI_RISING_EDGE_SC,  /* 3 */
-    EXTI_FALLING_EDGE_SC, /* 4 */
-    EXTI_ONCHANGE_SC,     /* 5 */
-    EXTI_LOW_LEVEL_SC,    /* 6 */
+    EXTI_INT0,         /* 0 */
+    EXTI_INT1,         /* 1 */
+    EXTI_INT2,         /* 2 */
+    EXTI_RISING_EDGE,  /* 3 */
+    EXTI_FALLING_EDGE, /* 4 */
+    EXTI_ONCHANGE,     /* 5 */
+    EXTI_LOW_LEVEL,    /* 6 */
 
 } enut_EXTI;
 
