@@ -133,41 +133,6 @@ u8 LED_u8Off(u8 Copy_u8LedNumber)
 }
 
 /*
- * Description: Function to turn off a specific LED
- * Inputs: LED number
- * Output: the Error state of the function
- */
-u8 LED_u8Off(u8 Copy_u8LedNumber)
-{
-	/* Local variable to hold the error state */
-	u8 Local_u8ErrorState = STATUS_OK;
-
-	/* Check if the LED number is valid */
-	if (Copy_u8LedNumber >= LED_NUM_OF_LEDS)
-	{
-		/* Set the error state to Error */
-		Local_u8ErrorState = STATUS_ERROR;
-	}
-
-	else
-	{
-		/* Check if the LED is forward or reverse */
-		switch (LED_Au8LedDirection[Copy_u8LedNumber])
-		{
-		case LED_FORWARD:
-			Local_u8ErrorState = DIO_u8SetPinValue(LED_Au8LedPort[Copy_u8LedNumber], LED_Au8LedPin[Copy_u8LedNumber], LOW);
-			break;
-		case LED_REVERSE:
-			Local_u8ErrorState = DIO_u8SetPinValue(LED_Au8LedPort[Copy_u8LedNumber], LED_Au8LedPin[Copy_u8LedNumber], HIGH);
-			break;
-		}
-	}
-
-	/* Return the error state */
-	return Local_u8ErrorState;
-}
-
-/*
  * Description: Function to toggle a specific LED
  * Inputs: LED number
  * Output: the Error state of the function
