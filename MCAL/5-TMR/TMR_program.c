@@ -710,7 +710,7 @@ u8 TMR_u8SetDesiredTime(u8 Copy_u8TimerNumber, u32 Copy_u32Time_us)
         {
         case TMR_TIMER0:
         {
-            Local_f32TimerCtr = ((Copy_u32Time_us) / TMR_TIMER0_TOVF);
+            Local_f32TimerCtr = ((f32)(Copy_u32Time_us) / TMR_TIMER0_TOVF);
             if (TMR_TIMER0_MODE == TMR_CTC)
             {
                 TMR_VidSetTIMER0CTCTime(Local_f32TimerCtr);
@@ -723,7 +723,7 @@ u8 TMR_u8SetDesiredTime(u8 Copy_u8TimerNumber, u32 Copy_u32Time_us)
         }
         case TMR_TIMER1:
         {
-            Local_f32TimerCtr = ((Copy_u32Time_us) / TMR_TIMER1_TOVF);
+            Local_f32TimerCtr = ((f32)(Copy_u32Time_us) / TMR_TIMER1_TOVF);
             if (TMR_TIMER1_MODE == TMR_CTC)
             {
                 TMR_VidSetTIMER1CTCTime(Local_f32TimerCtr);
@@ -736,7 +736,7 @@ u8 TMR_u8SetDesiredTime(u8 Copy_u8TimerNumber, u32 Copy_u32Time_us)
         }
         case TMR_TIMER2:
         {
-            Local_f32TimerCtr = ((Copy_u32Time_us) / TMR_TIMER2_TOVF);
+            Local_f32TimerCtr = ((f32)(Copy_u32Time_us) / TMR_TIMER2_TOVF);
             if (TMR_TIMER2_MODE == TMR_CTC)
             {
                 TMR_VidSetTIMER2CTCTime(Local_f32TimerCtr);
