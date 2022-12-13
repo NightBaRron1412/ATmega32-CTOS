@@ -828,7 +828,7 @@ u8 TMR_u8GetPeriod(u16 *Copy_Pu16Period)
  * Inputs: the container variable which will hold the value of the Duty Cycle
  * Output: the Error state of the function
  */
-u16 TMR_u16GetDutyCycle(u16 *Copy_Pu16DutyCycle)
+u8 TMR_u8GetDutyCycle(u16 *Copy_Pu16DutyCycle)
 {
 
     /* Local Variable holding the error state */
