@@ -18,16 +18,16 @@ typedef unsigned char u8;
 typedef signed char s8;
 
 /* unsigned 16 bit type */
-typedef unsigned short u16;
+typedef unsigned short int u16;
 
 /* signed 16 bit type */
-typedef signed short s16;
+typedef signed short int s16;
 
 /* unsigned 32 bit type */
-typedef unsigned int u32;
+typedef unsigned long int u32;
 
 /* signed 32 bit type */
-typedef signed int s32;
+typedef signed long int s32;
 
 /* floating type 32 bit */
 typedef float f32;
