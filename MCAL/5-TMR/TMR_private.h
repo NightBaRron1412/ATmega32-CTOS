@@ -8,6 +8,7 @@
  *
  */
 
+/* Include guard */
 #ifndef TMR_PRIVATE_H
 #define TMR_PRIVATE_H
 

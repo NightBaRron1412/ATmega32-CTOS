@@ -8,8 +8,22 @@
  *
  */
 
+/* Include guard */
 #ifndef TMR_INTERFACE_H
 #define TMR_INTERFACE_H
+
+/* definitions for time */
+#define SEC 1000000
+#define mSEC 1000
+
+/* Enum to hold Timer names for interfacing */
+typedef enum
+{
+    TIMER_0, /* 0 */
+    TIMER_1, /* 1 */
+    TIMER_2, /* 2 */
+
+} enut_TMR;
 
 /*
  * Description: Function to set the initialized state and prescaler for each timer (0,1,2)
@@ -80,31 +94,31 @@ void TMR_VidEnableIcuInterrupt(void);
 void TMR_VidDisableIcuInterrupt(void);
 
 /*
-* Description: Function to get the Period of the signal received by the input capture pin ICP1 (D6)
-* Inputs: the container variable which will hold the value of the period
-* Output: the Error state of the function
-*/
+ * Description: Function to get the Period of the signal received by the input capture pin ICP1 (D6)
+ * Inputs: the container variable which will hold the value of the period
+ * Output: the Error state of the function
+ */
 u8 TMR_u8GetPeriod(u16 *Copy_Pu16Period);
 
 /*
-* Description: Function to get the Duty Cycle of the signal received by the input capture pin ICP1 (D6)
-* Inputs: the container variable which will hold the value of the Duty Cycle
-* Output: the Error state of the function
-*/
+ * Description: Function to get the Duty Cycle of the signal received by the input capture pin ICP1 (D6)
+ * Inputs: the container variable which will hold the value of the Duty Cycle
+ * Output: the Error state of the function
+ */
 u8 TMR_u8GetDutyCycle(u16 *Copy_Pu16DutyCycle);
 
 /*
-* Description: Function to get the OnTime of the signal received by the input capture pin ICP1 (D6)
-* Inputs: the container variable which will hold the value of the OnTime
-* Output: the Error state of the function
-*/
+ * Description: Function to get the OnTime of the signal received by the input capture pin ICP1 (D6)
+ * Inputs: the container variable which will hold the value of the OnTime
+ * Output: the Error state of the function
+ */
 u8 TMR_u8OnTime(u16 *Copy_Pu16OnTime);
 
 /*
-* Description: Function to get the OffTime of the signal received by the input capture pin ICP1 (D6)
-* Inputs: the container variable which will hold the value of the OffTime
-* Output: the Error state of the function
-*/
+ * Description: Function to get the OffTime of the signal received by the input capture pin ICP1 (D6)
+ * Inputs: the container variable which will hold the value of the OffTime
+ * Output: the Error state of the function
+ */
 u8 TMR_u8OffTime(u16 *Copy_Pu16OffTime);
 
 #endif /* TMR_INTERFACE_H */
