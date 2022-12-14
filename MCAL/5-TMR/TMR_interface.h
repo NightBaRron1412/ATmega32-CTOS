@@ -13,8 +13,8 @@
 #define TMR_INTERFACE_H
 
 /* definitions for time */
-#define SEC 1000000
-#define mSEC 1000
+#define SEC (u32)1000000
+#define mSEC (u32)1000
 
 /* Enum to hold Timer names for interfacing */
 typedef enum
