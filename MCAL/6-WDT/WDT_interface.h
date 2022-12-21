@@ -1,28 +1,61 @@
 /** @file WDT_interface.h
- * 
- * @brief A header file including functions for WatchDog Timer controlling. 
+ *
+ * @brief A header file including functions for WatchDog Timer controlling.
  *
  * @author Amir Shetaia
- * @version 1.0
- * @date Aug 16, 2021       
+ * @version 2.0
+ * @date Dec 21, 2022
  *
  */
 
+/* Includes Guard */
 #ifndef WDT_INTERFACE_H
 #define WDT_INTERFACE_H
 
-#define WDT_16_3_ms 0
-#define WDT_32_5_ms 1
-#define WDT_65_ms 2
-#define WDT_0_13_s 3
-#define WDT_0_26_s 4
-#define WDT_0_52_s 5
-#define WDT_1_s 6
-#define WDT_2_1_s 7
+/* Macros for WatchDog Timer Periods (Values at typical 5V) */
+#define WDT_16MS 0
+#define WDT_32MS 1
+#define WDT_65MS 2
+#define WDT_130MS 3
+#define WDT_260MS 4
+#define WDT_520MS 5
+#define WDT_1000MS 6
+#define WDT_2100MS 7
 
+/*
+ * Description: Function to initialize the WatchDog Timer
+ * Inputs: void
+ * Output: void
+ */
+void WDT_VidInit(void);
+
+/*
+ * Description: Function to Enable the WatchDog Timer
+ * Inputs: void
+ * Output: void
+ */
 void WDT_VidEnable(void);
-void WDT_VidSleep(u8 Copy_u8Period);
+
+/*
+ * Description: Function to set the timeout period of the WatchDog Timer
+ * Inputs: the timeout period of the WatchDog Timer
+ * Output: Error State of the function
+ */
+u8 WDT_u8SetTimeout(u8 Copy_u8Period);
+
+/*
+ * Description: Function to Disable the WatchDog Timer
+ * Inputs: void
+ * Output: void
+ */
 void WDT_VidDisable(void);
+
+/*
+ * Description: Function to Reset the WatchDog Timer
+ * Inputs: void
+ * Output: void
+ */
+void WDT_VidResetTimer(void);
 
 #endif /* WDT_INTERFACE_H */
 
