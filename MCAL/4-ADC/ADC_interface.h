@@ -22,31 +22,33 @@
 #define A6 6
 #define A7 7
 
-/*
- * Description: Function to initialize the ADC peripheral
- * Inputs: void
- * Output: void
+/**
+ * @brief A function to initialize the ADC peripheral
+ * @param void
+ * @return void
  */
 void ADC_VidInit(void);
-/*
- * Description: Function to get the ADC value from the required ADC channel using busy wait method
- * Inputs: ADC channel number and the Pointer to the variable supposed to hold the ADC variable
- * Output: the Error state of the function
- */
 
+/**
+ * @brief A function to get the ADC value from the required ADC channel using blocking method
+ * @param Copy_u8ChannelNb: the ADC channel number
+ * @param Copy_Pu16ADCValue: the Pointer to the variable supposed to hold the ADC value
+ * @return the Error state of the function
+ */
 u8 ADC_u8ReadBlocking(u8 Copy_u8Channel, u16 *Copy_Pu16ADCValue);
 
-/*
- * Description: Function to get the ADC value from the required ADC channel using ISR method
- * Inputs: ADC channel number and the Pointer to the variable supposed to hold the ADC variable
- * Output: the Error state of the function
+/**
+ * @brief A function to get the ADC value from the required ADC channel using non-blocking method
+ * @param Copy_u8ChannelNb: the ADC channel number
+ * @param Copy_Pu16ADCValue: the Pointer to the variable supposed to hold the ADC value
+ * @return the Error state of the function
  */
 u8 ADC_u8ReadNonBlocking(u8 Copy_u8ChannelNb, u16 *Copy_Pu16ADCValue);
 
-/*
- * Description: Function to set the callback function which will run as ISR on ADC conversion complete
- * Inputs: a pointer to the callback function
- * Output: the Error state of the function
+/**
+ * @brief A function to set the callback function which will run as ISR on ADC conversion complete
+ * @param Copy_PVCallBack: the pointer to the callback function
+ * @return the Error state of the function
  */
 u8 ADC_u8SetCallBack(void (*Copy_PVCallBack)(void));
 

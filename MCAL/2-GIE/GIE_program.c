@@ -3,10 +3,12 @@
  * @brief A program that implements GIE functions
  *
  * @author Amir Shetaia
- * @version 1.2
- * @date Aug 22, 2021
+ * @version 2.0
+ * @date Dec 23, 2022
  *
  */
+
+/*========================== Libraries Includes ==========================*/
 
 #include "../Lib/Std_Types.h" /* Including standard types header */
 #include "../Lib/Bit_Math.h"  /* Includes bit math header functions */
@@ -14,20 +16,22 @@
 #include "GIE_config.h"       /* Including header file for GIE configurations */
 #include "GIE_interface.h"    /* Including header file for GIE Enable/Disable funtions */
 
-/*
- * Description: Function to enable all the interrupts for AVR ATmega32
- * Inputs: void
- * Output: void
+/*========================== Functions ==========================*/
+
+/**
+ * @brief A function to enable all the interrupts for AVR ATmega32
+ * @param void
+ * @return void
  */
 void GIE_VidEnable(void)
 {
     SET_BIT(SREG, SREG_I_BIT);
 }
 
-/*
- * Description: Function to disable all the interrupts for AVR ATmega32
- * Inputs: void
- * Output: void
+/**
+ * @brief A function to disable all the interrupts for AVR ATmega32
+ * @param void
+ * @return void
  */
 void GIE_VidDisable(void)
 {

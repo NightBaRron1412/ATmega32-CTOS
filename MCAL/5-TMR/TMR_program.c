@@ -8,6 +8,8 @@
  *
  */
 
+/*========================== Libraries Includes ==========================*/
+
 #include "../Lib/Std_Types.h"
 #include "../Lib/Bit_Math.h"
 #include "TMR_private.h"
@@ -39,10 +41,12 @@ static u16 TMR_u16DutyCycle;
 /* Static array where each element is a pointer to function of each one of overflow interrupt for timer 0,1,2 */
 static void (*PVCallBack[TMR_NO_OF_TIMERS])(void) = {NULL, NULL, NULL};
 
-/*
- * Description: Function to set the initialized state and prescaler for each timer (0,1,2)
- * Inputs: none
- * Output: void
+/*========================== Functions ==========================*/
+
+/**
+ * @brief A function to initialize the Timer peripheral
+ * @param void
+ * @return void
  */
 void TMR_VidInit(void)
 {
@@ -517,12 +521,11 @@ void TMR_VidInit(void)
     }
 }
 
-/*
- * Description: Function to enable one of the available timers in AVR ATmega32 (0,1,2)
- * Inputs: Timer Number
- * Output: the Error state of the function
+/**
+ * @brief A function to enable one of the available timers in AVR ATmega32 (0,1,2)
+ * @param Copy_u8TimerNumber: the number of the available timer (0,1,2)
+ * @return the Error state of the function
  */
-
 u8 TMR_u8EnableTimer(u8 Copy_u8TimerNumber)
 {
     /* Local Variable holding the error state */
@@ -558,10 +561,10 @@ u8 TMR_u8EnableTimer(u8 Copy_u8TimerNumber)
     return Local_u8Error;
 }
 
-/*
- * Description: Function to disable one of the available timers in AVR ATmega32 (0,1,2)
- * Inputs: Timer Number
- * Output: the Error state of the function
+/**
+ * @brief A function to disable one of the available timers in AVR ATmega32 (0,1,2)
+ * @param Copy_u8TimerNumber: the number of the available timer (0,1,2)
+ * @return the Error state of the function
  */
 u8 TMR_u8DisableTimer(u8 Copy_u8TimerNumber)
 {
@@ -603,10 +606,11 @@ u8 TMR_u8DisableTimer(u8 Copy_u8TimerNumber)
     return Local_u8Error;
 }
 
-/*
- * Description: Function to set the duty cycle of the PWM signal generated from Timers(0,1,2)
- * Inputs: Timer Number and the desired duty cycle
- * Output: the Error state of the function
+/**
+ * @brief Function to set the duty cycle of the PWM signal generated from Timers(0,1,2)
+ * @param Copy_u8TimerNumber: the number of the available timer (0,1,2)
+ * @param Copy_u8DutyCycle: the desired duty cycle
+ * @return the Error state of the function
  */
 u8 TMR_u8SetDutyCycle(u8 Copy_u8TimerNumber, u8 Copy_u8DutyCycle)
 {
@@ -653,11 +657,10 @@ u8 TMR_u8SetDutyCycle(u8 Copy_u8TimerNumber, u8 Copy_u8DutyCycle)
     return Local_u8Error;
 }
 
-/*
- * Description: Function to set the duty cycle of the PWM signal generated from Timer1,Pins OC1A or/and OC1B
- * (used mainly in servo interfacing and load which needs TMR_u8_FASTPWM_ICR1 timer mode)
- * Inputs: The desired timer compare value
- * Output: void
+/**
+ * @brief Function to set the duty cycle of the PWM signal generated from Timer1,Pins OC1A or/and OC1B
+ * @param Copy_u16ReqCompValue: the desired timer compare value
+ * @return the Error state of the function
  */
 void TMR_VidSetPWM(u16 Copy_u16ReqCompValue)
 {
@@ -685,12 +688,11 @@ void TMR_VidSetPWM(u16 Copy_u16ReqCompValue)
     }
 }
 
-/*
- * Description: Function to set the delay time for the required timer
- * this function can be used for making delay (in case of Timer normal mode)
- * or for specifying a sampling time (in case of Timer CTC mode)
- * Inputs: the delay time in microsecond
- * Output: the Error state of the function
+/**
+ * @brief Function to set the desired time for a certain timer in case of firing its interrupt
+ * @param Copy_u8TimerNumber: the number of the available timer (0,1,2)
+ * @param Copy_u32Time_us: the desired time in micro seconds
+ * @return the Error state of the function
  */
 u8 TMR_u8SetDesiredTime(u8 Copy_u8TimerNumber, u32 Copy_u32Time_us)
 {
@@ -754,10 +756,11 @@ u8 TMR_u8SetDesiredTime(u8 Copy_u8TimerNumber, u32 Copy_u32Time_us)
     return Local_u8Error;
 }
 
-/*
- * Description: Function to set the callback function for a certain timer in case of firing its interrupt
- * Inputs: the number of the available timer (0,1,2) and a pointer to its callback function
- * Output: the Error state of the function
+/**
+ * @brief Function to set the callback function for a certain timer
+ * @param Copy_u8TimerNumber: the number of the available timer (0,1,2)
+ * @param Copy_PVCallBack: the address of the callback function
+ * @return the Error state of the function
  */
 u8 TMR_u8SetCallBack(u8 Copy_u8TimerNumber, void (*Copy_PVCallBack)(void))
 {
@@ -782,30 +785,30 @@ u8 TMR_u8SetCallBack(u8 Copy_u8TimerNumber, void (*Copy_PVCallBack)(void))
 
 /*========================== Functions related to Input Capture Mode ==========================*/
 
-/*
- * Description: Function to enable input capture interrupt
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to enable input capture interrupt
+ * @param void
+ * @return void
  */
 void TMR_VidEnableIcuInterrupt(void)
 {
     SET_BIT(TIMSK, TIMSK_TICIE1);
 }
 
-/*
- * Description: Function to disable input capture interrupt
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to disable input capture interrupt
+ * @param void
+ * @return void
  */
 void TMR_VidDisableIcuInterrupt(void)
 {
     CLR_BIT(TIMSK, TIMSK_TICIE1);
 }
 
-/*
- * Description: Function to get the Period of the signal received by the input capture pin ICP1 (D6)
- * Inputs: the container variable which will hold the value of the period
- * Output: the Error state of the function
+/**
+ * @brief Function to get the period of the signal received by the input capture pin ICP1 (D6)
+ * @param Copy_Pu16Period: the container variable which will hold the value of the period
+ * @return the Error state of the function
  */
 u8 TMR_u8GetPeriod(u16 *Copy_Pu16Period)
 {
@@ -823,10 +826,10 @@ u8 TMR_u8GetPeriod(u16 *Copy_Pu16Period)
     return Local_u8Error;
 }
 
-/*
- * Description: Function to get the Duty Cycle of the signal received by the input capture pin ICP1 (D6)
- * Inputs: the container variable which will hold the value of the Duty Cycle
- * Output: the Error state of the function
+/**
+ * @brief Function to get the duty cycle of the signal received by the input capture pin ICP1 (D6)
+ * @param Copy_Pu16DutyCycle: the container variable which will hold the value of the duty cycle
+ * @return the Error state of the function
  */
 u8 TMR_u8GetDutyCycle(u16 *Copy_Pu16DutyCycle)
 {
@@ -845,10 +848,10 @@ u8 TMR_u8GetDutyCycle(u16 *Copy_Pu16DutyCycle)
     return Local_u8Error;
 }
 
-/*
- * Description: Function to get the OnTime of the signal received by the input capture pin ICP1 (D6)
- * Inputs: the container variable which will hold the value of the OnTime
- * Output: the Error state of the function
+/**
+ * @brief Function to get the OnTime of the signal received by the input capture pin ICP1 (D6)
+ * @param Copy_Pu16OnTime: the container variable which will hold the value of the OnTime
+ * @return the Error state of the function
  */
 u8 TMR_u8OnTime(u16 *Copy_Pu16OnTime)
 {
@@ -866,10 +869,10 @@ u8 TMR_u8OnTime(u16 *Copy_Pu16OnTime)
     return Local_u8Error;
 }
 
-/*
- * Description: Function to get the OffTime of the signal received by the input capture pin ICP1 (D6)
- * Inputs: the container variable which will hold the value of the OffTime
- * Output: the Error state of the function
+/**
+ * @brief Function to get the OffTime of the signal received by the input capture pin ICP1 (D6)
+ * @param Copy_Pu16OffTime: the container variable which will hold the value of the OffTime
+ * @return the Error state of the function
  */
 u8 TMR_u8OffTime(u16 *Copy_Pu16OffTime)
 {

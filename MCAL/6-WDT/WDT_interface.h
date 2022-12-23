@@ -22,38 +22,38 @@
 #define WDT_1000MS 6
 #define WDT_2100MS 7
 
-/*
- * Description: Function to initialize the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to initialize the WatchDog Timer
+ * @param void
+ * @return void
  */
 void WDT_VidInit(void);
 
-/*
- * Description: Function to Enable the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to enable the WatchDog Timer
+ * @param void
+ * @return void
  */
 void WDT_VidEnable(void);
 
-/*
- * Description: Function to set the timeout period of the WatchDog Timer
- * Inputs: the timeout period of the WatchDog Timer
- * Output: Error State of the function
+/**
+ * @brief Function to set the timeout period of the WatchDog Timer
+ * @param Copy_u8Period: the timeout period of the WatchDog Timer
+ * @return Error State of the function
  */
 u8 WDT_u8SetTimeout(u8 Copy_u8Period);
 
-/*
- * Description: Function to Disable the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to disable the WatchDog Timer
+ * @param void
+ * @return void
  */
 void WDT_VidDisable(void);
 
-/*
- * Description: Function to Reset the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to reset the WatchDog Timer
+ * @param void
+ * @return void
  */
 void WDT_VidResetTimer(void);
 

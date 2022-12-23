@@ -8,8 +8,10 @@
  *
  */
 
-#include "../Lib/Std_Types.h" /* Including standard types header */
-#include "../Lib/Bit_Math.h"  /* Includes bit math header functions */
+/*========================== Libraries Includes ==========================*/
+
+#include "../Lib/Std_Types.h"
+#include "../Lib/Bit_Math.h"
 #include "EXTI_config.h"
 #include "EXTI_private.h"
 #include "EXTI_interface.h"
@@ -17,10 +19,12 @@
 /*Static array where each element is a pointer to function of each one of the external int (INT0,INT1-INT2)*/
 static void (*PVCallBack[EXTI_NO_OF_EXTI])(void) = {NULL, NULL, NULL};
 
-/*
- * Description: Function to initialize the external interrupts (INT0,INT1,INT2) according to the configurations
- * Inputs: void
- * Output: void
+/*========================== Functions ==========================*/
+
+/**
+ * @brief A function to initialize the external interrupts (INT0,INT1,INT2)
+ * @param void
+ * @return void
  */
 void EXTI_VidInit(void)
 {
@@ -120,10 +124,10 @@ void EXTI_VidInit(void)
     }
 }
 
-/*
- * Description: Function to enable one of the required external interrupts (INT0,INT1,INT2)
- * Inputs: the number of the external interrupt (0,1,2)
- * Output: the Error state of the function
+/**
+ * @brief A function to enable the required external interrupts (INT0,INT1,INT2)
+ * @param Copy_u8IntNumber: the number of the external interrupt (0,1,2)
+ * @return the Error state of the function
  */
 u8 EXTI_u8Enable(u8 Copy_u8IntNumber)
 {
@@ -155,10 +159,10 @@ u8 EXTI_u8Enable(u8 Copy_u8IntNumber)
     return Local_u8ErrorState;
 }
 
-/*
- * Description: Function to disable one of the required external interrupts (INT0,INT1,INT2)
- * Inputs: the number of the external interrupt (0,1,2)
- * Output: the Error state of the function
+/**
+ * @brief A function to disable the required external interrupts (INT0,INT1,INT2)
+ * @param Copy_u8IntNumber: the number of the external interrupt (0,1,2)
+ * @return the Error state of the function
  */
 u8 EXTI_u8Disable(u8 Copy_u8IntNumber)
 {
@@ -190,10 +194,11 @@ u8 EXTI_u8Disable(u8 Copy_u8IntNumber)
     return Local_u8ErrorState;
 }
 
-/*
- * Description: Function to set the sense level of the required external interrupts (INT0,INT1,INT2)
- * Inputs: the number of the external interrupt (0,1,2) and the required sense level
- * Output: the Error state of the function
+/**
+ * @brief A function to set the sense level of the required external interrupts (INT0,INT1,INT2)
+ * @param Copy_u8IntNumber: the number of the external interrupt (0,1,2)
+ * @param Copy_u8SenseLevel: the sense level of the external interrupt
+ * @return the Error state of the function
  */
 u8 EXTI_u8SetSenseLevel(u8 Copy_u8IntNumber, u8 Copy_u8SenseLevel)
 {
@@ -285,10 +290,11 @@ u8 EXTI_u8SetSenseLevel(u8 Copy_u8IntNumber, u8 Copy_u8SenseLevel)
     return Local_u8ErrorState;
 }
 
-/*
- * Description: Function to set the callback function for the required external interrupts (INT0,INT1,INT2)
- * Inputs: the number of the external interrupt (0,1,2) and the callback function
- * Output: the Error state of the function
+/**
+ * @brief A function to set the callback function for the required external interrupts (INT0,INT1,INT2)
+ * @param Copy_u8IntNumber: the number of the external interrupt (0,1,2)
+ * @param Copy_PVCallBack: the address of the callback function
+ * @return the Error state of the function
  */
 u8 EXTI_u8SetCallBack(u8 Copy_u8IntNumber, void (*Copy_PVCallBack)(void))
 {

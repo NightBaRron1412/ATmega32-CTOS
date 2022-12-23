@@ -18,10 +18,10 @@
 
 /*========================== Functions Implementation ==========================*/
 
-/*
- * Description: Function to initialize the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to initialize the WatchDog Timer
+ * @param void
+ * @return void
  */
 void WDT_VidInit(void)
 {
@@ -36,10 +36,10 @@ void WDT_VidInit(void)
 	WDTCR |= (WDT_INIT_PERIOD << WDTCR_WDP0);
 }
 
-/*
- * Description: Function to set the timeout period of the WatchDog Timer
- * Inputs: the timeout period of the WatchDog Timer
- * Output: Error State of the function
+/**
+ * @brief Function to enable the WatchDog Timer
+ * @param void
+ * @return void
  */
 u8 WDT_u8SetTimeout(u8 Copy_u8Period)
 {
@@ -62,20 +62,20 @@ u8 WDT_u8SetTimeout(u8 Copy_u8Period)
 	return Local_u8ErrorState;
 }
 
-/*
- * Description: Function to Enable the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to set the timeout period of the WatchDog Timer
+ * @param Copy_u8Period: the timeout period of the WatchDog Timer
+ * @return Error State of the function
  */
 void WDT_VidEnable(void)
 {
 	SET_BIT(WDTCR, WDTCR_WDE);
 }
 
-/*
- * Description: Function to Disable the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to disable the WatchDog Timer
+ * @param void
+ * @return void
  */
 void WDT_VidDisable(void)
 {
@@ -86,10 +86,10 @@ void WDT_VidDisable(void)
 	WDTCR = 0x00;
 }
 
-/*
- * Description: Function to Reset the WatchDog Timer
- * Inputs: void
- * Output: void
+/**
+ * @brief Function to reset the WatchDog Timer
+ * @param void
+ * @return void
  */
 void WDT_VidResetTimer(void)
 {
