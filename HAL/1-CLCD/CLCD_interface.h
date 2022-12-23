@@ -1,37 +1,67 @@
 /** @file CLCD_interface.h
- * 
- * @brief A header file including functions for CLCD controlling. 
+ *
+ * @brief A header file including functions for CLCD controlling.
  *
  * @author Amir Shetaia
- * @version 1.0
- * @date Aug 17, 2021       
+ * @version 2.0
+ * @date Dec 23, 2022
  *
  */
 
+/* Include Guard */
 #ifndef CLCD_INTERFACE_H
 #define CLCD_INTERFACE_H
 
-/*------------------------------Custom characters--------------------------*/
+/**
+ * @brief A function for initializing the CLCD.
+ * @param void
+ * @return void
+ */
+void CLCD_VidInit(void);
 
-u8 divisionSymb[] = {
-    0x00,
-    0x04,
-    0x00,
-    0x1F,
-    0x00,
-    0x04,
-    0x00,
-    0x00};
+/**
+ * @brief A function for sending a command to the CLCD.
+ * @param Copy_u8Command: The command to be sent.
+ * @return The Error state of the function.
+ */
+u8 CLCD_u8SendCommand(u8 Copy_u8Command);
 
-/*------------------------------CLCD Funtions--------------------------*/
+/**
+ * @brief A function for sending a data to the CLCD.
+ * @param Copy_u8Data: The data to be sent.
+ * @return The Error state of the function.
+ */
+u8 CLCD_u8SendData(u8 Copy_u8Data);
 
-void CLCD_VidSendCommand(u8 Copy_u8Command);                                //Function to send commands to CLCD
-void CLCD_VidSendData(u8 Copy_u8Data);                                      //Function to send data to CLCD
-void CLCD_VidInit();                                                        //Function to initialize CLCD
-void CLCD_VidGotoXY(u8 Copy_u8XPos, u8 Copy_u8YPos);                        //Function to go to certain position on CLCD
-void CLCD_VidCreatSpecialChar(u8 *Copy_u8Pattern, u8 Copy_u8PatternNumber); //Function to write special character on CLCD
-void CLCD_VidDisplayClear();                                                //Function to clear display
-void CLCD_VidSendString(u8 *Copy_u8Str);                                    //Function to display string to CLCD
+/**
+ * @brief A function for clearing the CLCD.
+ * @param void
+ * @return void
+ */
+void CLCD_VidDisplayClear(void);
+
+/**
+ * @brief A function for going to a specific position on the CLCD.
+ * @param Copy_u8XPos: The X position to go to.
+ * @param Copy_u8YPos: The Y position to go to.
+ * @return void
+ */
+void CLCD_VidGotoXY(u8 Copy_u8XPos, u8 Copy_u8YPos);
+
+/**
+ * @brief A function for creating a special character.
+ * @param Copy_u8Pattern: The pattern of the special character.
+ * @param Copy_u8PatternNumber: The number of the special character.
+ * @return The Error state of the function.
+ */
+u8 CLCD_u8CreatSpecialChar(u8 *Copy_u8Pattern, u8 Copy_u8PatternNumber);
+
+/**
+ * @brief A function for sending a string to the CLCD.
+ * @param Copy_u8Str: The string to be sent.
+ * @return The Error state of the function.
+ */
+u8 CLCD_u8SendString(u8 *Copy_u8Str);
 
 #endif /* CLCD_INTERFACE_H */
 
