@@ -49,40 +49,33 @@ typedef enum
     LED_32,
 } enut_LED;
 
-/*
- * Description: Function to set the initialized configuration of each LED
- * Inputs: none
- * Output: void
+/**
+ * @brief Function to initialize the LEDs
+ * @param void
+ * @return void
  */
 void LED_VidInit(void);
 
-/*
- * Description: Function to turn on a specific LED
- * Inputs: LED number
- * Output: the Error state of the function
+/**
+ * @brief Function to turn on a specific LED
+ * @param Copy_u8LedNumber: LED number
+ * @return the Error state of the function
  */
 u8 LED_u8On(u8 Copy_u8LedNumber);
 
-/*
- * Description: Function to turn off a specific LED
- * Inputs: LED number
- * Output: the Error state of the function
+/**
+ * @brief Function to turn off a specific LED
+ * @param Copy_u8LedNumber: LED number
+ * @return the Error state of the function
  */
 u8 LED_u8Off(u8 Copy_u8LedNumber);
 
-/*
- * Description: Function to toggle a specific LED
- * Inputs: LED number
- * Output: the Error state of the function
+/**
+ * @brief Function to toggle a specific LED
+ * @param Copy_u8LedNumber: LED number
+ * @return the Error state of the function
  */
 u8 LED_u8Toggle(u8 Copy_u8LedNumber);
-
-/*
- * Description: Function to blink a specific LED
- * Inputs: LED number, On time in ms, Off time in ms
- * Output: the Error state of the function
- */
-u8 LED_u8Blink(u8 Copy_u8LedNumber, u8 Copy_u16OnTime_ms, u8 Copy_u16OffTime_ms);
 
 #endif /* LED_INTERFACE_H */
 
