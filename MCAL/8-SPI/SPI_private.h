@@ -3,11 +3,12 @@
  * @brief A header file including memory addresses and Bit nums for SPI. 
  *
  * @author Amir Shetaia
- * @version 1.0
- * @date Sep 5, 2021       
+ * @version 2.0
+ * @date Dec 31, 2022     
  *
  */
 
+/* Include guard */
 #ifndef SPI_PRIVATE_H
 #define SPI_PRIVATE_H
 
@@ -41,12 +42,12 @@
 #define SPI_OVER_32_HSPD 6
 #define SPI_OVER_64_HSPD 7
 
-/*---------------------------SPI Control Register-------------------*/
+/*========================== SPI Control Register ==========================*/
 
-//Defining SPI Control Register
+/* Defining SPI Control Register */
 #define SPCR *((volatile u8 *)(0x2D))
 
-//Defining SPI Control Register bit numbers
+/* Defining SPI Control Register bit numbers */
 #define SPCR_SPR0 0
 #define SPCR_SPR1 1
 #define SPCR_CPHA 2
@@ -56,21 +57,21 @@
 #define SPCR_SPE 6
 #define SPCR_SPIE 7
 
-//Defining SPI Status Register
+/* Defining SPI Status Register */
 #define SPSR *((volatile u8 *)(0x2E))
 
-//Defining SPI Status Register
+/* Defining SPI Status Register */
 #define SPSR_SPI2X 0
 #define SPSR_SPIF 7
 
-/*---------------------------SPI Data Register-------------------*/
+/*========================== SPI Data Register ==========================*/
 
-//Defining SPI Data Register
+/* Defining SPI Data Register */
 #define SPDR *((volatile u8 *)(0x2F))
 
-/*---------------------------ISRs of SPI interrupts  -------------------*/
+/*========================== ISRs of SPI interrupts ==========================*/
 
-/*The ISR of Serial Transfer Complete*/
+/* The ISR of Serial Transfer Complete */
 void __vector_12(void) __attribute__((signal));
 
 #endif /* SPI_PRIVATE_H */

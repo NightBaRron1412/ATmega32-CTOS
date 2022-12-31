@@ -3,19 +3,16 @@
  * @brief A header file including functions for SPI. 
  *
  * @author Amir Shetaia
- * @version 1.0
- * @date Sep 5, 2021       
+ * @version 2.0
+ * @date Dec 31, 2022      
  *
  */
 
+/* Include guard */
 #ifndef SPI_INTERFACE_H
 #define SPI_INTERFACE_H
 
 void SPI_VidInit();
-
-void SPI_VidSendByte(u8 Copy_u8Data);
-
-u8 SPI_u8ReceiveByte();
 
 u8 SPI_u8TranceiveByte(u8 Copy_u8Data);
 

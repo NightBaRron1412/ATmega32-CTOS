@@ -1,62 +1,69 @@
 /** @file SPI_config.h
- * 
- * @brief A header file including configurations for SPI. 
+ *
+ * @brief A header file including configurations for SPI.
  *
  * @author Amir Shetaia
- * @version 1.0
- * @date Sep 5, 2021       
+ * @version 2.0
+ * @date Dec 31, 2022
  *
  */
 
+/* Include guard */
 #ifndef SPI_CONFIG_H
 #define SPI_CONFIG_H
 
-//Specify the role of the SPI node
+/**
+ * Macro to select the role of the SPI node (Master/Slave)
+ * Range: SPI_MASTER
+ *        SPI_SLAVE
+ */
 #define SPI_SELECTROLE SPI_MASTER
 
 /**
- * Options:
- * SPI_MASTER
- * SPI_SLAVE
-*/
-
-//Specify state of the Serial Transfer Complete interrupt
+ * Macro to select the initial state of the SPI node
+ * Range: SPI_ENABLE
+ *        SPI_DISABLE
+ */
 #define SPI_INT_STATE SPI_DISABLE
 
 /**
- * Options:
- * SPI_ENABLE
- * SPI_DISABLE
-*/
-
-//Specify order by which the byte will be sent
+ * Macro to select the first bit to be sent
+ * Range: SPI_LSB
+ *        SPI_MSB
+ */
 #define SPI_DATA_ORDER SPI_MSB
 
 /**
- * Options:
- * SPI_LSB
- * SPI_MSB
-*/
-
-//Specify the clock polarity
+ * Macro to select the clock polarity
+ * Range: SPI_RISINGEDGE
+ *        SPI_FALLINGEDGE
+ */
 #define SPI_CLKPOL SPI_RISINGEDGE
 
 /**
- * Options:
- * SPI_RISINGEDGE
- * SPI_FALLINGEDGE
-*/
-
-//Specify the clock phase
+ * Macro to select the clock phase
+ * Range: SPI_SAMPLE
+ *        SPI_SETUP
+ */
 #define SPI_CLKPHASE SPI_SAMPLE
 
 /**
  * Options:
  * SPI_SAMPLE
  * SPI_SETUP
-*/
+ */
 
-//Specify the SPI clock rate
+/**
+ * Macro to select the clock rate
+ * Range: SPI_OVER_4
+ *        SPI_OVER_16
+ *        SPI_OVER_64
+ *        SPI_OVER_128
+ *        SPI_OVER_2_HSPD
+ *        SPI_OVER_8_HSPD
+ *        SPI_OVER_32_HSPD
+ *        SPI_OVER_64_HSPD
+ */
 #define SPI_CLKRATE SPI_OVER_16
 
 /**
@@ -69,7 +76,7 @@
  * SPI_OVER_8_HSPD
  * SPI_OVER_32_HSPD
  * SPI_OVER_64_HSPD
-*/
+ */
 
 #if (SPI_CLKRATE == SPI_OVER_4)
 #define SPI_SPRBITS 0
@@ -96,6 +103,9 @@
 #define SPI_SPRBITS 3
 
 #endif
+
+/* Macro to define the timeout which determines the fault time in the SPI upon transmitting or receiving */
+#define SPI_TIMEOUT 50000
 
 #endif /* SPI_CONFIG_H */
 
