@@ -23,9 +23,6 @@ static u8 *SPI_Pu8TransmittedString;
 /* Static pointer to the passed array needed to be filled using the Asynchronous receiving function */
 static u8 *SPI_Pu8ReceivedString;
 
-/* Static variable that will be equal the required length of the received msg */
-static u8 SPI_u8NoOfBytes;
-
 /* Incremented index using in asynchronous transmitting and receiving */
 static u8 SPI_u8Index;
 
@@ -114,25 +111,24 @@ u8 SPI_u8TranceiveByteSynch(u8 Copy_u8SentData, u8 *Copy_Pu8ReceivedData)
 }
 
 /**
- * @brief A function to send a string using SPI in Asynchronous mode.
- * @param Copy_pu8SentBuffer A pointer to the string needed to be sent.
- * @param Copy_u8RecBuffer A pointer to the array needed to be filled with the received data.
- * @param Copy_u8NoOfBytes The length of the string.
+ * @brief A function to send and receive a string using SPI.
+ * @param Copy_Pu8SentString The string needed to be sent.
+ * @param Copy_Pu8ReceivedString A pointer to the array needed to be filled with the received data.
+ * @param CallBack A pointer to the function needed to be called after finishing transmission the buffer.
  * @return u8 The error state.
  */
-u8 SPI_u8SendReceiveBuffer_Asynch(u8 *Copy_pu8SentBuffer, u8 *Copy_Pu8RecBuffer, u8 Copy_u8NoOfBytes, void (*CallBack)(void))
+u8 SPI_u8TranceiveStringAsynch(u8 *Copy_Pu8SentBuffer, u8 *Copy_Pu8RecBuffer, void (*CallBack)(void))
 {
     /* Local variable to hold the error state */
     u8 Local_u8ErrorState = STATUS_ERROR;
 
-    if (Copy_pu8SentBuffer != NULL && Copy_Pu8RecBuffer != NULL && CallBack != NULL)
+    if (Copy_Pu8SentBuffer != NULL && Copy_Pu8RecBuffer != NULL && CallBack != NULL)
     {
         Local_u8ErrorState = STATUS_OK;
 
         /* Initialize the static variables */
-        SPI_Pu8TransmittedString = Copy_pu8SentBuffer;
+        SPI_Pu8TransmittedString = Copy_Pu8SentBuffer;
         SPI_Pu8ReceivedString = Copy_Pu8RecBuffer;
-        SPI_u8NoOfBytes = Copy_u8NoOfBytes;
         SPI_u8Index = 0;
 
         /* Initialize the callback function */
@@ -150,18 +146,24 @@ u8 SPI_u8SendReceiveBuffer_Asynch(u8 *Copy_pu8SentBuffer, u8 *Copy_Pu8RecBuffer,
 
 void __vector_12(void)
 {
+    /* Receive the data */
     SPI_Pu8ReceivedString[SPI_u8Index] = SPDR;
-    if (SPI_u8Index == SPI_u8NoOfBytes)
+
+    /* Check if the transmission is complete */
+    if (SPI_Pu8TransmittedString[SPI_u8Index] == '\0')
     {
-        SPI_u8Index = 0;
-        SPI_u8NoOfBytes = 0;
+        /* Disable the SPI interrupt */
         CLEAR_BIT(SPCR, SPCR_SPIE);
-        PtrASychCallback();
+
+        /* Call the callback function */
+        PtrASynchCallback();
     }
     else
     {
+        /* Increment the index */
         SPI_u8Index++;
+
+        /* Send the data */
         SPDR = SPI_Pu8TransmittedString[SPI_u8Index];
     }
-    return;
 }
