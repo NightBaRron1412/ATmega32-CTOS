@@ -20,6 +20,9 @@ This work is licensed under **MIT license**, read LICENSE file for more info. Pl
 10. CLCD (HAL Layer)
 11. KPD (HAL Layer)
 12. EEPROM (HAL Layer)
+13. LED (HAL Layer)
+14. BTN (HAL Layer)
+15. SSD (HAL Layer)
 
 ## How to use
 Each driver is encapsulated in a folder, to use any of the drivers you should read the `interface.h` file (fully commented on what every function does). 
