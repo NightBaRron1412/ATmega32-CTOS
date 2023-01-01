@@ -39,6 +39,10 @@ typedef double f64;
 #define STATUS_OK (u8)0
 #define STATUS_ERROR (u8)1
 
+/* Boolean type */
+#define TRUE 1
+#define FALSE 0
+
 /* Macro for NULL */
 #define NULL ((void *)0)
 
